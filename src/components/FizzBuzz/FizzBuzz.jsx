@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import fizzBuzz from "../../modules/fizzbuzz";
+import range from "../../modules/range";
 import {
   Box,
   Button,
@@ -9,28 +10,34 @@ import {
   Center,
   FormControl,
   FormLabel,
-  Input,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  FormHelperText,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 
-function* range(min, max) {
-  //use a generator function for performance (ie, not creating a huge array of numbers at one time)
-  for (let i = min; i <= max; i++) {
-    yield i;
-  }
-}
+// function* range(min, max) {
+//   //use a generator function for performance (ie, not creating a huge array of numbers at one time)
+//   for (let i = min; i <= max; i++) {
+//     yield i;
+//   }
+// }
 
 export default function FizzBuzz() {
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(100);
-  const [currentRange, setCurrentRange] = useState([...range(min, max)]);
-  let isError = false;
+  const [currentRange, setCurrentRange] = useState([]);
+  const [isError, setIsError] = useState(false);
 
   const handleChange = (number, callingComponent) => {
+    //TODO: handle validation for nonnumeric characters
+    if (!number) {
+      console.log("in !number");
+      return;
+    }
     if (typeof number !== "number") {
       number = Number(number);
     }
@@ -42,25 +49,30 @@ export default function FizzBuzz() {
     setMax(number);
   };
 
-  const handleSubmit = (event) => {
+  const handleRun = (event) => {
     event.preventDefault();
     console.log(min, max);
     if (min > max) {
-      isError = true;
+      setIsError(true);
       return;
     }
     setCurrentRange([...range(min, max)]);
+    setIsError(false);
     return;
+  };
+
+  const handleReset = (event) => {
+    setCurrentRange([]);
   };
 
   return (
     <Box>
       <Stack spacing={2}>
-        <FormControl>
+        <FormControl isInvalid={isError}>
           <FormLabel>Minimum Value</FormLabel>
           <NumberInput
             defaultValue={min}
-            min={0}
+            min={1}
             onChange={(e) => handleChange(e, "min")}
           >
             <NumberInputField />
@@ -69,12 +81,6 @@ export default function FizzBuzz() {
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          {/* <Input
-            type="number"
-            onChange={(event) => handleChange(event)}
-            value={min}
-            name="min"
-          /> */}
           <FormLabel>Maximum Value</FormLabel>
           <NumberInput
             onChange={(e) => handleChange(e, "max")}
@@ -87,8 +93,16 @@ export default function FizzBuzz() {
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          <Button onClick={handleSubmit}>Calculate</Button>
+          {!isError ? (
+            <FormHelperText>Enter a valid range of numbers.</FormHelperText>
+          ) : (
+            <FormErrorMessage>
+              The current range is invalid. Is the minimum greater than max?
+            </FormErrorMessage>
+          )}
         </FormControl>
+        <Button onClick={handleRun}>Run</Button>
+        <Button onClick={handleReset}>Reset</Button>
 
         <Box>Min: {min}</Box>
         <Box>Max: {max}</Box>
