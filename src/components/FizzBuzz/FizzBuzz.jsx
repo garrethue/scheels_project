@@ -19,18 +19,11 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 
-// function* range(min, max) {
-//   //use a generator function for performance (ie, not creating a huge array of numbers at one time)
-//   for (let i = min; i <= max; i++) {
-//     yield i;
-//   }
-// }
-
 export default function FizzBuzz() {
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(100);
   const [currentRange, setCurrentRange] = useState([]);
-  const [isError, setIsError] = useState(false);
+  const [isInError, setIsInError] = useState(false);
 
   const handleChange = (number, callingComponent) => {
     //TODO: handle validation for nonnumeric characters
@@ -38,9 +31,7 @@ export default function FizzBuzz() {
       console.log("in !number");
       return;
     }
-    if (typeof number !== "number") {
-      number = Number(number);
-    }
+    number = Number(number);
     console.log(typeof number, callingComponent);
     if (callingComponent === "min") {
       setMin(number);
@@ -53,11 +44,11 @@ export default function FizzBuzz() {
     event.preventDefault();
     console.log(min, max);
     if (min > max) {
-      setIsError(true);
+      setIsInError(true);
       return;
     }
     setCurrentRange([...range(min, max)]);
-    setIsError(false);
+    setIsInError(false);
     return;
   };
 
@@ -68,12 +59,12 @@ export default function FizzBuzz() {
   return (
     <Box>
       <Stack spacing={2}>
-        <FormControl isInvalid={isError}>
+        <FormControl isInvalid={isInError}>
           <FormLabel>Minimum Value</FormLabel>
           <NumberInput
-            defaultValue={min}
             min={1}
             onChange={(e) => handleChange(e, "min")}
+            value={min}
           >
             <NumberInputField />
             <NumberInputStepper>
@@ -84,8 +75,8 @@ export default function FizzBuzz() {
           <FormLabel>Maximum Value</FormLabel>
           <NumberInput
             onChange={(e) => handleChange(e, "max")}
-            defaultValue={max}
             min={min}
+            value={max}
           >
             <NumberInputField />
             <NumberInputStepper>
@@ -93,7 +84,7 @@ export default function FizzBuzz() {
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          {!isError ? (
+          {!isInError ? (
             <FormHelperText>Enter a valid range of numbers.</FormHelperText>
           ) : (
             <FormErrorMessage>
