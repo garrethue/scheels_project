@@ -1,10 +1,12 @@
+import FizzBuzz from "./components/FizzBuzz/FizzBuzz";
+import { Center, Box } from "@chakra-ui/react";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Hello World!</p>
-      </header>
-    </div>
+    <Box m={5}>
+      <Center>
+        <FizzBuzz />
+      </Center>
+    </Box>
   );
 }
 
