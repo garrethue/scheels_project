@@ -53,6 +53,8 @@ export default function FizzBuzz() {
   };
 
   const handleReset = (event) => {
+    setMin(1);
+    setMax(100);
     setCurrentRange([]);
   };
 
@@ -87,9 +89,7 @@ export default function FizzBuzz() {
           {!isInError ? (
             <FormHelperText>Enter a valid range of numbers.</FormHelperText>
           ) : (
-            <FormErrorMessage>
-              The current range is invalid. Is the minimum greater than max?
-            </FormErrorMessage>
+            <FormErrorMessage>The current range is invalid.</FormErrorMessage>
           )}
         </FormControl>
         <Button onClick={handleRun}>Run</Button>
