@@ -1,9 +1,11 @@
+import FizzBuzz from "./components/FizzBuzz/FizzBuzz";
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Hello World!</p>
+        <p>Scheels FizzBuzz</p>
       </header>
+      <FizzBuzz />
     </div>
   );
 }
