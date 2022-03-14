@@ -1,31 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import fizzBuzz from "../../modules/fizzbuzz";
-import { Box, Grid, GridItem, Button, List, ListItem } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  Stack,
+  Center,
+  FormControl,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
+
+function* range(min, max) {
+  //use a generator function for performance (ie, not creating a huge array of numbers at one time)
+  for (let i = min; i <= max; i++) {
+    yield i;
+  }
+}
 
 export default function FizzBuzz() {
+  const [min, setMin] = useState(1);
+  const [max, setMax] = useState(100);
+  const [currentRange, setCurrentRange] = useState([...range(min, max)]);
+  let isError = false;
+
+  const handleChange = (e) => {
+    console.log(e.target.name);
+    // const input = Number(e); //change to integer
+    // setMin(input);
+    if (e.target.name === "min") {
+      console.log(e.target.value);
+      setMin(Number(e.target.value));
+      return;
+    }
+    setMax(Number(e.target.value));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(min, max);
+    if (min > max) {
+      isError = true;
+      return;
+    }
+    setCurrentRange([...range(min, max)]);
+    return;
+  };
+
   return (
     <Box>
-      <Grid w="100%">
-        <GridItem w="100%" h="100%" bg="blue.500" justifyContent="center">
-          <h1>Options</h1>
-          <div>
-            Min: <input></input>
-          </div>
-          <div>
-            Max: <input></input>
-          </div>
-          <Button>Calculate</Button>
-        </GridItem>
-        <GridItem w="100%" h="100%" bg="blue.500" justifyContent="center">
+      <Stack spacing={2}>
+        <FormControl isInvalid={isError}>
+          <FormLabel>Minimum Value</FormLabel>
+          <Input
+            type="number"
+            onChange={(event) => handleChange(event)}
+            value={min}
+            name="min"
+          />
+          <FormLabel>Maximum Value</FormLabel>
+          <Input
+            type="number"
+            onChange={(event) => handleChange(event)}
+            value={max}
+            name="max"
+          />
+          <Button onClick={handleSubmit}>Calculate</Button>
+        </FormControl>
+
+        <Center>
           <List>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-              (element) => {
-                return <ListItem>{fizzBuzz(element)}</ListItem>;
-              }
-            )}
+            {currentRange.map((number) => {
+              return <ListItem key={number}>{fizzBuzz(number)}</ListItem>;
+            })}
           </List>
-        </GridItem>
-      </Grid>
+        </Center>
+      </Stack>
     </Box>
   );
 }
