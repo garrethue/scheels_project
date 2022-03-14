@@ -10,6 +10,11 @@ import {
   FormControl,
   FormLabel,
   Input,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react";
 
 function* range(min, max) {
@@ -25,17 +30,16 @@ export default function FizzBuzz() {
   const [currentRange, setCurrentRange] = useState([...range(min, max)]);
   let isError = false;
 
-  const handleChange = (e) => {
-    console.log(e.target.name);
-    console.log("value", e.target.value);
-    const value = e.target.value === "" && 0;
-
-    if (e.target.name === "min") {
-      console.log(e.target.value);
-      setMin(Number(e.target.value));
+  const handleChange = (number, callingComponent) => {
+    if (typeof number !== "number") {
+      number = Number(number);
+    }
+    console.log(typeof number, callingComponent);
+    if (callingComponent === "min") {
+      setMin(number);
       return;
     }
-    //setMax(Number(e.target.value));
+    setMax(number);
   };
 
   const handleSubmit = (event) => {
@@ -52,23 +56,42 @@ export default function FizzBuzz() {
   return (
     <Box>
       <Stack spacing={2}>
-        <FormControl isInvalid={isError}>
+        <FormControl>
           <FormLabel>Minimum Value</FormLabel>
-          <Input
+          <NumberInput
+            defaultValue={min}
+            min={0}
+            onChange={(e) => handleChange(e, "min")}
+          >
+            <NumberInputField />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+          {/* <Input
             type="number"
             onChange={(event) => handleChange(event)}
             value={min}
             name="min"
-          />
+          /> */}
           <FormLabel>Maximum Value</FormLabel>
-          <Input
-            type="number"
-            onChange={(event) => handleChange(event)}
-            value={max}
-            name="max"
-          />
+          <NumberInput
+            onChange={(e) => handleChange(e, "max")}
+            defaultValue={max}
+            min={min}
+          >
+            <NumberInputField />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
           <Button onClick={handleSubmit}>Calculate</Button>
         </FormControl>
+
+        <Box>Min: {min}</Box>
+        <Box>Max: {max}</Box>
 
         <Center>
           <List>
