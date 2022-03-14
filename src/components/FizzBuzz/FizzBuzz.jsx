@@ -27,14 +27,15 @@ export default function FizzBuzz() {
 
   const handleChange = (e) => {
     console.log(e.target.name);
-    // const input = Number(e); //change to integer
-    // setMin(input);
+    console.log("value", e.target.value);
+    const value = e.target.value === "" && 0;
+
     if (e.target.name === "min") {
       console.log(e.target.value);
       setMin(Number(e.target.value));
       return;
     }
-    setMax(Number(e.target.value));
+    //setMax(Number(e.target.value));
   };
 
   const handleSubmit = (event) => {
