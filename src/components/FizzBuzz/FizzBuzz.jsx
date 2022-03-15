@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import fizzBuzz from "../../modules/fizzbuzz";
 import range from "../../modules/range";
+import Options from "../Options/Options";
+import Output from "../Output/Output";
 import {
   Box,
   Button,
-  List,
-  ListItem,
   Stack,
-  Center,
   FormControl,
   FormLabel,
   NumberInput,
@@ -52,16 +50,27 @@ export default function FizzBuzz() {
     return;
   };
 
-  const handleReset = (event) => {
+  const clearResults = () => {
+    setCurrentRange([]);
+  };
+
+  const handleReset = () => {
     setMin(1);
     setMax(100);
-    setCurrentRange([]);
   };
 
   return (
     <Box>
+      <Options
+        isInError={isInError}
+        min={min}
+        max={max}
+        handleChange={handleChange}
+        setIsInError={setIsInError}
+        handleReset={handleReset}
+      />
       <Stack spacing={2}>
-        <FormControl isInvalid={isInError}>
+        {/* <FormControl isInvalid={isInError}>
           <FormLabel>Minimum Value</FormLabel>
           <NumberInput
             min={1}
@@ -91,20 +100,14 @@ export default function FizzBuzz() {
           ) : (
             <FormErrorMessage>The current range is invalid.</FormErrorMessage>
           )}
-        </FormControl>
+        </FormControl> */}
         <Button onClick={handleRun}>Run</Button>
-        <Button onClick={handleReset}>Reset</Button>
+        <Button onClick={clearResults}>Clear</Button>
 
         <Box>Min: {min}</Box>
         <Box>Max: {max}</Box>
 
-        <Center>
-          <List>
-            {currentRange.map((number) => {
-              return <ListItem key={number}>{fizzBuzz(number)}</ListItem>;
-            })}
-          </List>
-        </Center>
+        <Output currentRange={currentRange} />
       </Stack>
     </Box>
   );

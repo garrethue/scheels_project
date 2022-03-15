@@ -19,73 +19,48 @@ import {
   FormHelperText,
   FormErrorMessage,
   useDisclosure,
+  IconButton,
 } from "@chakra-ui/react";
+import { SettingsIcon } from "@chakra-ui/icons";
 
-export default function DrawerExample() {
+export default function Options(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
-  const [min, setMin] = useState(1);
-  const [max, setMax] = useState(100);
-  const [currentRange, setCurrentRange] = useState([]);
-  const [isInError, setIsInError] = useState(false);
-
-  const handleChange = (number, callingComponent) => {
-    //TODO: handle validation for nonnumeric characters
-    if (!number) {
-      console.log("in !number");
+  const handleOnClose = () => {
+    if (props.min > props.max) {
+      props.setIsInError(true);
       return;
     }
-    number = Number(number);
-    console.log(typeof number, callingComponent);
-    if (callingComponent === "min") {
-      setMin(number);
-      return;
-    }
-    setMax(number);
-  };
-
-  const handleRun = (event) => {
-    event.preventDefault();
-    console.log(min, max);
-    if (min > max) {
-      setIsInError(true);
-      return;
-    }
-    setCurrentRange([...range(min, max)]);
-    setIsInError(false);
-    return;
-  };
-
-  const handleReset = (event) => {
-    setMin(1);
-    setMax(100);
-    setCurrentRange([]);
+    onClose();
   };
 
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Options
-      </Button>
+      <IconButton
+        icon={<SettingsIcon />}
+        ref={btnRef}
+        colorScheme="teal"
+        onClick={onOpen}
+      ></IconButton>
       <Drawer
         isOpen={isOpen}
         placement="right"
-        onClose={onClose}
+        onClose={handleOnClose}
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>FizzBuzz Options</DrawerHeader>
+          <DrawerHeader>Options</DrawerHeader>
 
           <DrawerBody>
-            <FormControl isInvalid={isInError}>
+            <FormControl isInvalid={props.isInError}>
               <FormLabel>Minimum Value</FormLabel>
               <NumberInput
                 min={1}
-                onChange={(e) => handleChange(e, "min")}
-                value={min}
+                onChange={(e) => props.handleChange(e, "min")}
+                value={props.min}
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -95,9 +70,9 @@ export default function DrawerExample() {
               </NumberInput>
               <FormLabel>Maximum Value</FormLabel>
               <NumberInput
-                onChange={(e) => handleChange(e, "max")}
-                min={min}
-                value={max}
+                onChange={(e) => props.handleChange(e, "max")}
+                min={props.min}
+                value={props.max}
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -105,7 +80,7 @@ export default function DrawerExample() {
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
-              {!isInError ? (
+              {!props.isInError ? (
                 <FormHelperText>Enter a valid range of numbers.</FormHelperText>
               ) : (
                 <FormErrorMessage>
@@ -116,10 +91,12 @@ export default function DrawerExample() {
           </DrawerBody>
 
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
+            <Button colorScheme="red" mr={3} onClick={props.handleReset}>
+              Reset
             </Button>
-            <Button colorScheme="blue">Save</Button>
+            <Button colorScheme="blue" mr={3} onClick={handleOnClose}>
+              Close
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
