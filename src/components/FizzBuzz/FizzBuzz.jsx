@@ -2,27 +2,37 @@ import React, { useState } from "react";
 import range from "../../functions/range";
 import Options from "./Options/Options";
 import Output from "./Output/Output";
-import { Box, Button, Stack, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
 
 export default function FizzBuzz() {
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(100);
+  const [domainName, setDomainName] = useState("SCHEELS");
+  const [topLevelDomain, setTopLevelDomain] = useState(".COM");
   const [currentRange, setCurrentRange] = useState([]);
   const [isInError, setIsInError] = useState(false);
 
-  const handleChange = (number, callingComponent) => {
-    //TODO: handle validation for nonnumeric characters
-    if (!number) {
-      console.log("in !number");
+  const handleChange = (eventObj, callingComponent) => {
+    //TODO: handle when eventObj == undefined == null
+    if (!eventObj || eventObj == null) {
       return;
     }
-    number = Number(number);
-    console.log(typeof number, callingComponent);
-    if (callingComponent === "min") {
-      setMin(number);
+
+    if (callingComponent === "min" || callingComponent === "max") {
+      const number = Number(eventObj);
+      if (callingComponent === "min") {
+        setMin(number);
+        return;
+      }
+      setMax(number);
       return;
     }
-    setMax(number);
+
+    if (callingComponent === "domainName") {
+      setDomainName(eventObj.target.value);
+      return;
+    }
+    setTopLevelDomain(eventObj.target.value);
   };
 
   const handleRun = (event) => {
@@ -41,9 +51,15 @@ export default function FizzBuzz() {
     setCurrentRange([]);
   };
 
-  const handleReset = () => {
-    setMin(1);
-    setMax(100);
+  const handleParameterReset = (eventObj, callingComponent) => {
+    console.log(eventObj, callingComponent);
+    if (callingComponent === "numberRangeReset") {
+      setMin(1);
+      setMax(100);
+    } else if (callingComponent === "domainReset") {
+      setDomainName("SCHEELS");
+      setTopLevelDomain(".COM");
+    }
     setIsInError(false);
   };
 
@@ -51,22 +67,36 @@ export default function FizzBuzz() {
     <Grid templateColumns="repeat(5, 1fr)">
       <GridItem>
         <Options
-          isInError={isInError}
-          min={min}
-          max={max}
-          handleChange={handleChange}
-          setIsInError={setIsInError}
-          handleReset={handleReset}
+          parameters={{
+            isInError,
+            min,
+            max,
+            handleChange,
+            setIsInError,
+            handleParameterReset,
+            setDomainName,
+            setTopLevelDomain,
+            domainName,
+            topLevelDomain,
+          }}
         />
         <Box>
           <Button onClick={handleRun}>Run</Button>
-          <Button onClick={clearResults}>Clear</Button>
+          <Button onClick={clearResults}>Reset</Button>
         </Box>
         <Box>Min: {min}</Box>
         <Box>Max: {max}</Box>
+        <Box>Domain Name: {domainName}</Box>
+        <Box>TopLevel Domain: {topLevelDomain}</Box>
       </GridItem>
       <GridItem>
-        <Output currentRange={currentRange} />
+        <Output
+          parameters={{
+            domainName,
+            topLevelDomain,
+            currentRange,
+          }}
+        />
       </GridItem>
     </Grid>
   );

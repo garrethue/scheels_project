@@ -6,7 +6,7 @@ export default function Output(props) {
   return (
     <Center>
       <List>
-        {props.currentRange.map((number) => {
+        {props.parameters.currentRange.map((number) => {
           return <ListItem key={number}>{fizzBuzz(number)}</ListItem>;
         })}
       </List>

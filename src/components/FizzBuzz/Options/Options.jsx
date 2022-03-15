@@ -28,10 +28,17 @@ export default function Options(props) {
   const btnRef = React.useRef();
 
   const handleOnClose = () => {
-    if (props.min > props.max) {
-      props.setIsInError(true);
+    //extend the onClose method provided by Chakra UI
+    if (
+      props.parameters.min > props.parameters.max ||
+      props.parameters.domainName === "" ||
+      props.parameters.topLevelDomain === ""
+    ) {
+      props.parameters.setIsInError(true);
       return;
     }
+
+    props.parameters.setIsInError(false);
     onClose();
   };
 
@@ -54,19 +61,21 @@ export default function Options(props) {
           <DrawerHeader>Options</DrawerHeader>
 
           <DrawerBody>
-            <FormControl isInvalid={props.isInError}>
-              {!props.isInError ? (
-                <FormHelperText>Enter a valid range of numbers.</FormHelperText>
+            <FormControl isInvalid={props.parameters.isInError}>
+              {!props.parameters.isInError ? (
+                <FormHelperText>
+                  Enter a valid range of numbers and domain name.
+                </FormHelperText>
               ) : (
                 <FormErrorMessage>
-                  The current range is invalid.
+                  The current range or domain name is invalid.
                 </FormErrorMessage>
               )}
               <FormLabel mt={2}>Minimum Value</FormLabel>
               <NumberInput
                 min={1}
-                onChange={(e) => props.handleChange(e, "min")}
-                value={props.min}
+                onChange={(e) => props.parameters.handleChange(e, "min")}
+                value={props.parameters.min}
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -76,9 +85,9 @@ export default function Options(props) {
               </NumberInput>
               <FormLabel mt={2}>Maximum Value</FormLabel>
               <NumberInput
-                onChange={(e) => props.handleChange(e, "max")}
-                min={props.min}
-                value={props.max}
+                onChange={(e) => props.parameters.handleChange(e, "max")}
+                min={props.parameters.min}
+                value={props.parameters.max}
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -86,27 +95,47 @@ export default function Options(props) {
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
-            </FormControl>
-            <Button colorScheme="red" mt={3} mr={3} onClick={props.handleReset}>
-              Reset
-            </Button>
-            <Divider m={3} />
-            <FormControl>
-              {!false ? (
-                <FormHelperText>Enter a valid domain name.</FormHelperText>
-              ) : (
-                <FormErrorMessage>
-                  The current domain name is invalid.
-                </FormErrorMessage>
-              )}
-              <FormLabel mt={2}>Name</FormLabel>
-              <Input placeholder="SCHEELS" />
+              <Button
+                colorScheme="red"
+                mt={3}
+                mr={3}
+                onClick={(e) =>
+                  props.parameters.handleParameterReset(e, "numberRangeReset")
+                }
+              >
+                Reset
+              </Button>
+              <Divider m={3} />
+              <FormLabel mt={2}>Domain Name</FormLabel>
+              <Input
+                type="text"
+                placeholder="SCHEELS"
+                value={props.parameters.domainName}
+                onChange={(e) => props.parameters.handleChange(e, "domainName")}
+              />
               <FormLabel mt={2}>Top-Level Domain</FormLabel>
-              <Input placeholder=".COM" />
+              <Input
+                type="text"
+                placeholder=".COM"
+                value={props.parameters.topLevelDomain}
+                onChange={(e) =>
+                  props.parameters.handleChange(e, "topLevelDomain")
+                }
+              />
+              <Button
+                colorScheme="red"
+                mt={3}
+                mr={3}
+                onClick={(e) =>
+                  props.parameters.handleParameterReset(e, "domainReset")
+                }
+              >
+                Reset
+              </Button>
             </FormControl>
           </DrawerBody>
 
-          <DrawerFooter>
+          <DrawerFooter justifyContent="left">
             <Button colorScheme="blue" mr={3} onClick={handleOnClose}>
               Close
             </Button>
