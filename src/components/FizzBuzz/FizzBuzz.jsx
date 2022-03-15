@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import range from "../../modules/range";
-import Options from "../Options/Options";
-import Output from "../Output/Output";
+import range from "../../functions/range";
+import Options from "./Options/Options";
+import Output from "./Output/Output";
 import { Box, Button, Stack, Grid, GridItem } from "@chakra-ui/react";
 
 export default function FizzBuzz() {
@@ -44,6 +44,7 @@ export default function FizzBuzz() {
   const handleReset = () => {
     setMin(1);
     setMax(100);
+    setIsInError(false);
   };
 
   return (
