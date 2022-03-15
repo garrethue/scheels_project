@@ -37,7 +37,8 @@ export default function FizzBuzz() {
 
   const handleRun = (event) => {
     event.preventDefault();
-    console.log(min, max);
+
+    //i dont think this error-handling is necessary anymore. Need to test this.
     if (min > max) {
       setIsInError(true);
       return;
@@ -52,7 +53,6 @@ export default function FizzBuzz() {
   };
 
   const handleParameterReset = (eventObj, callingComponent) => {
-    console.log(eventObj, callingComponent);
     if (callingComponent === "numberRangeReset") {
       setMin(1);
       setMax(100);

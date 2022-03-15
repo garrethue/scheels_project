@@ -7,7 +7,15 @@ export default function Output(props) {
     <Center>
       <List>
         {props.parameters.currentRange.map((number) => {
-          return <ListItem key={number}>{fizzBuzz(number)}</ListItem>;
+          return (
+            <ListItem key={number}>
+              {fizzBuzz(
+                number,
+                props.parameters.domainName,
+                props.parameters.topLevelDomain
+              )}
+            </ListItem>
+          );
         })}
       </List>
     </Center>
