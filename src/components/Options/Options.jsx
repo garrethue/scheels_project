@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import range from "../../modules/range";
+import React from "react";
 import {
   Drawer,
   DrawerBody,
@@ -7,7 +6,6 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
   Button,
   FormControl,
   FormLabel,

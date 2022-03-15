@@ -2,20 +2,7 @@ import React, { useState } from "react";
 import range from "../../modules/range";
 import Options from "../Options/Options";
 import Output from "../Output/Output";
-import {
-  Box,
-  Button,
-  Stack,
-  FormControl,
-  FormLabel,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  FormHelperText,
-  FormErrorMessage,
-} from "@chakra-ui/react";
+import { Box, Button, Stack, Grid, GridItem } from "@chakra-ui/react";
 
 export default function FizzBuzz() {
   const [min, setMin] = useState(1);
@@ -60,55 +47,26 @@ export default function FizzBuzz() {
   };
 
   return (
-    <Box>
-      <Options
-        isInError={isInError}
-        min={min}
-        max={max}
-        handleChange={handleChange}
-        setIsInError={setIsInError}
-        handleReset={handleReset}
-      />
-      <Stack spacing={2}>
-        {/* <FormControl isInvalid={isInError}>
-          <FormLabel>Minimum Value</FormLabel>
-          <NumberInput
-            min={1}
-            onChange={(e) => handleChange(e, "min")}
-            value={min}
-          >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-          <FormLabel>Maximum Value</FormLabel>
-          <NumberInput
-            onChange={(e) => handleChange(e, "max")}
-            min={min}
-            value={max}
-          >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-          {!isInError ? (
-            <FormHelperText>Enter a valid range of numbers.</FormHelperText>
-          ) : (
-            <FormErrorMessage>The current range is invalid.</FormErrorMessage>
-          )}
-        </FormControl> */}
-        <Button onClick={handleRun}>Run</Button>
-        <Button onClick={clearResults}>Clear</Button>
-
+    <Grid templateColumns="repeat(5, 1fr)">
+      <GridItem>
+        <Options
+          isInError={isInError}
+          min={min}
+          max={max}
+          handleChange={handleChange}
+          setIsInError={setIsInError}
+          handleReset={handleReset}
+        />
+        <Box>
+          <Button onClick={handleRun}>Run</Button>
+          <Button onClick={clearResults}>Clear</Button>
+        </Box>
         <Box>Min: {min}</Box>
         <Box>Max: {max}</Box>
-
+      </GridItem>
+      <GridItem>
         <Output currentRange={currentRange} />
-      </Stack>
-    </Box>
+      </GridItem>
+    </Grid>
   );
 }
