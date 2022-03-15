@@ -10,13 +10,13 @@ Assume that the text may need to be changed. For example ".COM" could be changed
 
 The program should run by clicking a button labeled "Run", and the results cleared when the user clicks a button labeled "Reset".
 */
-const fizzBuzz = (number, name = "SCHEELS", domain = ".COM") => {
+const fizzBuzz = (number, domainName, topLevelDomain) => {
   if (number % 5 === 0 && number % 3 === 0) {
-    return name + domain;
+    return domainName + topLevelDomain;
   } else if (number % 5 === 0) {
-    return domain;
+    return topLevelDomain;
   } else if (number % 3 === 0) {
-    return name;
+    return domainName;
   } else {
     return number;
   }
