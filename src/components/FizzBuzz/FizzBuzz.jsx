@@ -77,10 +77,6 @@ export default function FizzBuzz() {
           <Button onClick={handleRun}>Run</Button>
           <Button onClick={clearResults}>Reset</Button>
         </Box>
-        <Box>Min: {min}</Box>
-        <Box>Max: {max}</Box>
-        <Box>Domain Name: {domainName}</Box>
-        <Box>TopLevel Domain: {topLevelDomain}</Box>
       </GridItem>
       <GridItem>
         <Output
