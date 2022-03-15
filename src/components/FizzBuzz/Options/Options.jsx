@@ -116,7 +116,7 @@ export default function Options(props) {
               <FormLabel mt={2}>Top-Level Domain</FormLabel>
               <Input
                 type="text"
-                placeholder=".COM"
+                placeholder=".COM, .ORG, .NET, etc."
                 value={props.parameters.topLevelDomain}
                 onChange={(e) =>
                   props.parameters.handleChange(e, "topLevelDomain")

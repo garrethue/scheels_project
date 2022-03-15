@@ -37,14 +37,7 @@ export default function FizzBuzz() {
 
   const handleRun = (event) => {
     event.preventDefault();
-
-    //i dont think this error-handling is necessary anymore. Need to test this.
-    if (min > max) {
-      setIsInError(true);
-      return;
-    }
     setCurrentRange([...range(min, max)]);
-    setIsInError(false);
     return;
   };
 
