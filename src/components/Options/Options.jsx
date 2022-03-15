@@ -51,7 +51,6 @@ export default function Options(props) {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton />
           <DrawerHeader>Options</DrawerHeader>
 
           <DrawerBody>
@@ -95,7 +94,7 @@ export default function Options(props) {
               Reset
             </Button>
             <Button colorScheme="blue" mr={3} onClick={handleOnClose}>
-              Close
+              Save
             </Button>
           </DrawerFooter>
         </DrawerContent>
