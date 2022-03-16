@@ -76,7 +76,6 @@ export default function Options(props) {
               )}
               <FormLabel mt={2}>Minimum Value</FormLabel>
               <NumberInput
-                min={1}
                 onChange={(e) => props.parameters.handleChange(e, "min")}
                 value={props.parameters.min}
               >
@@ -89,7 +88,6 @@ export default function Options(props) {
               <FormLabel mt={2}>Maximum Value</FormLabel>
               <NumberInput
                 onChange={(e) => props.parameters.handleChange(e, "max")}
-                min={props.parameters.min}
                 value={props.parameters.max}
               >
                 <NumberInputField />
