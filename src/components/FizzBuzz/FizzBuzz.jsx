@@ -68,7 +68,7 @@ export default function FizzBuzz() {
   };
 
   return (
-    <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+    <Grid templateColumns="1fr 0.15fr 2fr" gap={2}>
       <GridItem>
         <Center py={6}>
           <Box
@@ -157,12 +157,12 @@ export default function FizzBuzz() {
           </Box>
         </Center>
       </GridItem>
-      <GridItem>
-        <Center height="50px">
+      <GridItem w="100%">
+        <Center height="100%">
           <Divider orientation="vertical" />
         </Center>
       </GridItem>
-      <GridItem>
+      <GridItem mt={5} mb={5} w="100%">
         <Output
           parameters={{
             domainName,
