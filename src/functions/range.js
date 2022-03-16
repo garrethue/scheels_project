@@ -5,4 +5,4 @@ function* range(min, max) {
   }
 }
 
-module.exports = range;
+export default range;

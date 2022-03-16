@@ -22,4 +22,4 @@ const fizzBuzz = (number, domainName, topLevelDomain) => {
   }
 };
 
-module.exports = fizzBuzz;
+export default fizzBuzz;
