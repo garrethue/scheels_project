@@ -49,6 +49,7 @@ export default function Options(props) {
         variant="ghost"
         icon={<SettingsIcon />}
         ref={btnRef}
+        size="lg"
         colorScheme="red"
         onClick={onOpen}
       ></IconButton>

@@ -134,6 +134,9 @@ export default function FizzBuzz() {
                 _hover={{
                   bg: "gray.200",
                 }}
+                boxShadow={
+                  "0px 1px 25px -5px rgb(207 207 207 / 48%), 0 10px 10px -5px rgb(207 207 207 / 43%)"
+                }
               >
                 Reset
               </Button>
