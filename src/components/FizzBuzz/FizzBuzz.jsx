@@ -157,7 +157,7 @@ export default function FizzBuzz() {
           </Box>
         </Center>
       </GridItem>
-      <GridItem w="100%">
+      <GridItem mt={2} mb={2} w="100%">
         <Center height="100%">
           <Divider orientation="vertical" />
         </Center>
