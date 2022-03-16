@@ -45,9 +45,11 @@ export default function Options(props) {
   return (
     <>
       <IconButton
+        ml={2}
+        variant="ghost"
         icon={<SettingsIcon />}
         ref={btnRef}
-        colorScheme="teal"
+        colorScheme="red"
         onClick={onOpen}
       ></IconButton>
       <Drawer

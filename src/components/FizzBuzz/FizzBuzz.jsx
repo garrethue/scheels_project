@@ -2,7 +2,19 @@ import React, { useState } from "react";
 import range from "../../functions/range";
 import Options from "./Options/Options";
 import Output from "./Output/Output";
-import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  GridItem,
+  Image,
+  Heading,
+  Avatar,
+  Center,
+  Text,
+  Stack,
+  Button,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 export default function FizzBuzz() {
   const [min, setMin] = useState(1);
@@ -13,7 +25,6 @@ export default function FizzBuzz() {
   const [isInError, setIsInError] = useState(false);
 
   const handleChange = (eventObj, callingComponent) => {
-    //TODO: handle when eventObj == undefined == null
     if (!eventObj || eventObj == null) {
       return;
     }
@@ -57,36 +68,102 @@ export default function FizzBuzz() {
   };
 
   return (
-    <Grid templateColumns="repeat(5, 1fr)">
-      <GridItem>
-        <Options
-          parameters={{
-            isInError,
-            min,
-            max,
-            handleChange,
-            setIsInError,
-            handleParameterReset,
-            setDomainName,
-            setTopLevelDomain,
-            domainName,
-            topLevelDomain,
-          }}
-        />
-        <Box>
-          <Button onClick={handleRun}>Run</Button>
-          <Button onClick={clearResults}>Reset</Button>
+    <>
+      <Center py={6}>
+        <Box
+          maxW={"320px"}
+          w={"full"}
+          bg={useColorModeValue("white", "gray.900")}
+          boxShadow={"2xl"}
+          rounded={"lg"}
+          p={6}
+          textAlign={"center"}
+        >
+          <Avatar
+            size={"xlg"}
+            src={
+              "https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+            }
+            alt={"Avatar Alt"}
+            mb={4}
+            pos={"relative"}
+          />
+          <Heading fontSize={"2xl"} fontFamily={"body"}>
+            FizzBuzz
+          </Heading>
+          <Text fontWeight={600} color={"gray.500"} mb={4}>
+            Challenge
+          </Text>
+          <Text
+            textAlign={"center"}
+            color={useColorModeValue("gray.700", "gray.400")}
+            px={3}
+          >
+            Click 'Run' to output the result, 'Reset' to clear the result, or
+            the gear icon for more options!{" "}
+          </Text>
+
+          <Stack align={"left"} justify={"left"} direction={"row"} mt={6}>
+            <Options
+              parameters={{
+                isInError,
+                min,
+                max,
+                handleChange,
+                setIsInError,
+                handleParameterReset,
+                setDomainName,
+                setTopLevelDomain,
+                domainName,
+                topLevelDomain,
+              }}
+            />
+          </Stack>
+
+          <Stack mt={8} direction={"row"} spacing={4}>
+            <Button
+              onClick={clearResults}
+              flex={1}
+              fontSize={"sm"}
+              rounded={"full"}
+              _focus={{
+                bg: "gray.300",
+              }}
+              _hover={{
+                bg: "gray.200",
+              }}
+            >
+              Reset
+            </Button>
+            <Button
+              onClick={handleRun}
+              flex={1}
+              fontSize={"sm"}
+              rounded={"full"}
+              bg={"red.500"}
+              color={"white"}
+              boxShadow={
+                "0px 1px 25px -5px rgb(255 0 0 / 48%), 0 10px 10px -5px rgb(255 0 0 / 43%)"
+              }
+              _hover={{
+                bg: "red.400",
+              }}
+              _focus={{
+                bg: "red.400",
+              }}
+            >
+              Run
+            </Button>
+          </Stack>
         </Box>
-      </GridItem>
-      <GridItem>
-        <Output
-          parameters={{
-            domainName,
-            topLevelDomain,
-            currentRange,
-          }}
-        />
-      </GridItem>
-    </Grid>
+      </Center>
+      <Output
+        parameters={{
+          domainName,
+          topLevelDomain,
+          currentRange,
+        }}
+      />
+    </>
   );
 }
