@@ -1,6 +1,6 @@
 import React from "react";
 import fizzBuzz from "../../../functions/fizzbuzz";
-import { List, ListItem, Center } from "@chakra-ui/react";
+import { List, ListItem } from "@chakra-ui/react";
 
 export default function Output(props) {
   return (

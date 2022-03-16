@@ -7,7 +7,6 @@ import {
   Grid,
   GridItem,
   Heading,
-  Avatar,
   Image,
   Center,
   Text,
