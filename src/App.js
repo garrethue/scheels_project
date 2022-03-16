@@ -1,13 +1,7 @@
 import FizzBuzz from "./components/FizzBuzz/FizzBuzz";
-import SandBox from "./components/sandbox";
 
 function App() {
-  return (
-    <>
-      {/* <SandBox /> */}
-      <FizzBuzz />
-    </>
-  );
+  return <FizzBuzz />;
 }
 
 export default App;

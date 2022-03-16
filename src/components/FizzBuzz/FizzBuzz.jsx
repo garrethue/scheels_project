@@ -8,6 +8,7 @@ import {
   GridItem,
   Heading,
   Avatar,
+  Image,
   Center,
   Text,
   Stack,
@@ -80,11 +81,13 @@ export default function FizzBuzz() {
             p={6}
             textAlign={"center"}
           >
-            <Avatar
-              size={"xlg"}
-              src={"../../../public/images/scheels-logo.jpeg"}
+            <Image
+              fallbackSrc={
+                "https://images.squarespace-cdn.com/content/53feb922e4b0260e999e33c7/1428763962384-NOSZJ216Q9N0620I5Z11/image-asset.jpeg?content-type=image%2Fjpeg"
+              }
+              src={"https://ibb.co/r5wCgQG"}
               alt={"Avatar Alt"}
-              mb={4}
+              mb={1}
               pos={"relative"}
             />
             <Heading fontSize={"2xl"} fontFamily={"body"}>
