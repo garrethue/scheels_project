@@ -27,6 +27,10 @@ export default function Options(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
+  const handleOnOpen = () => {
+    onOpen();
+  };
+
   const handleOnClose = () => {
     //extend the onClose method provided by Chakra UI
     if (
@@ -51,7 +55,7 @@ export default function Options(props) {
         ref={btnRef}
         size="lg"
         colorScheme="red"
-        onClick={onOpen}
+        onClick={handleOnOpen}
       ></IconButton>
       <Drawer
         isOpen={isOpen}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import range from "../../functions/range";
 import Options from "./Options/Options";
 import Output from "./Output/Output";
@@ -28,7 +28,6 @@ export default function FizzBuzz() {
     if (!eventObj || eventObj == null) {
       return;
     }
-
     if (callingComponent === "min" || callingComponent === "max") {
       const number = Number(eventObj);
       if (callingComponent === "min") {
@@ -67,6 +66,19 @@ export default function FizzBuzz() {
     setIsInError(false);
   };
 
+  const OutputJSX = useMemo(() => {
+    //use useMemo ReactHook to prevent unnecessary re-rendering
+    return (
+      <Output
+        parameters={{
+          domainName,
+          topLevelDomain,
+          currentRange,
+        }}
+      />
+    );
+  }, [currentRange]);
+
   return (
     <Grid templateColumns="1fr 0.15fr 2fr" gap={2}>
       <GridItem>
@@ -101,7 +113,7 @@ export default function FizzBuzz() {
               px={3}
             >
               Click 'Run' to output the result, 'Reset' to clear the result, or
-              the gear icon for more options!{" "}
+              the gear icon for more options.{" "}
             </Text>
 
             <Stack align={"left"} justify={"left"} direction={"row"} mt={6}>
@@ -112,6 +124,7 @@ export default function FizzBuzz() {
                   max,
                   handleChange,
                   setIsInError,
+                  clearResults,
                   handleParameterReset,
                   setDomainName,
                   setTopLevelDomain,
@@ -168,13 +181,14 @@ export default function FizzBuzz() {
         </Center>
       </GridItem>
       <GridItem mt={5} mb={5} w="100%">
-        <Output
+        {/* <Output
           parameters={{
             domainName,
             topLevelDomain,
             currentRange,
           }}
-        />
+        /> */}
+        {OutputJSX}
       </GridItem>
     </Grid>
   );
