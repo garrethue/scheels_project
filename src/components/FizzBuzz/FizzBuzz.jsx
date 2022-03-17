@@ -45,8 +45,7 @@ export default function FizzBuzz() {
     setTopLevelDomain(eventObj.target.value);
   };
 
-  const handleRun = (event) => {
-    event.preventDefault();
+  const handleRun = () => {
     setCurrentRange([...range(min, max)]);
     return;
   };
@@ -181,13 +180,6 @@ export default function FizzBuzz() {
         </Center>
       </GridItem>
       <GridItem mt={5} mb={5} w="100%">
-        {/* <Output
-          parameters={{
-            domainName,
-            topLevelDomain,
-            currentRange,
-          }}
-        /> */}
         {OutputJSX}
       </GridItem>
     </Grid>

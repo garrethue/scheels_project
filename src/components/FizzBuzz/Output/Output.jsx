@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import fizzBuzz from "../../../functions/fizzbuzz";
 import { List, ListItem } from "@chakra-ui/react";
 
