@@ -10,3 +10,8 @@ The goal of the exercise is to show off skills and creativity.
 4. Make the code DRY ... check (probably more opportunities that I am not seeing at the moment.)
 5. Set up Unit Tests with a popular library (such as Jest) ... if I had more time, would add unit tests to the two functions, range() and fizzbuzz()
 6. Look for ways to improve code and UI ... check.
+7. Deploy to Heroku ... check.
+
+# Deployment
+
+See https://scheels-proj.herokuapp.com/ for a live instance of application.
