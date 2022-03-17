@@ -82,6 +82,8 @@ export default function Options(props) {
               <NumberInput
                 onChange={(e) => props.parameters.handleChange(e, "min")}
                 value={props.parameters.min}
+                min={-100}
+                max={300}
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -93,6 +95,8 @@ export default function Options(props) {
               <NumberInput
                 onChange={(e) => props.parameters.handleChange(e, "max")}
                 value={props.parameters.max}
+                min={-100}
+                max={300}
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -117,6 +121,7 @@ export default function Options(props) {
                 placeholder="SCHEELS"
                 value={props.parameters.domainName}
                 onChange={(e) => props.parameters.handleChange(e, "domainName")}
+                maxLength={15}
               />
               <FormLabel mt={2}>Top-Level Domain</FormLabel>
               <Input
@@ -126,6 +131,7 @@ export default function Options(props) {
                 onChange={(e) =>
                   props.parameters.handleChange(e, "topLevelDomain")
                 }
+                maxLength={5}
               />
               <Button
                 colorScheme="red"
