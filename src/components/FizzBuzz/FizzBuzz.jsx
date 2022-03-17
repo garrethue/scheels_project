@@ -30,6 +30,9 @@ export default function FizzBuzz() {
     }
     if (callingComponent === "min" || callingComponent === "max") {
       const number = Number(eventObj);
+
+      if (Number.isNaN(number)) return;
+
       if (callingComponent === "min") {
         setMin(number);
         return;
