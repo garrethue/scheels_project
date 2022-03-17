@@ -4,8 +4,6 @@ import Options from "./Options/Options";
 import Output from "./Output/Output";
 import {
   Box,
-  Grid,
-  GridItem,
   Heading,
   Image,
   Center,
@@ -13,7 +11,7 @@ import {
   Stack,
   Button,
   useColorModeValue,
-  Divider,
+  StackDivider,
 } from "@chakra-ui/react";
 
 export default function FizzBuzz() {
@@ -82,8 +80,12 @@ export default function FizzBuzz() {
   }, [currentRange]);
 
   return (
-    <Grid templateColumns="1fr 0.15fr 2fr" gap={2}>
-      <GridItem>
+    <Stack
+      direction={["column", "row"]}
+      divider={<StackDivider borderColor="gray.200" />}
+      spacing={5}
+    >
+      <Box ml={3}>
         <Center py={6}>
           <Box
             maxW={"320px"}
@@ -176,15 +178,10 @@ export default function FizzBuzz() {
             </Stack>
           </Box>
         </Center>
-      </GridItem>
-      <GridItem mt={2} mb={2} w="100%">
-        <Center height="100%">
-          <Divider orientation="vertical" />
-        </Center>
-      </GridItem>
-      <GridItem mt={5} mb={5} w="100%">
-        {OutputJSX}
-      </GridItem>
-    </Grid>
+      </Box>
+      <Box mt={3} ml={3}>
+        <Center>{OutputJSX}</Center>
+      </Box>
+    </Stack>
   );
 }
