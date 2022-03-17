@@ -14,4 +14,4 @@ The goal of the exercise is to show off skills and creativity.
 
 # Deployment
 
-See https://scheels-proj.herokuapp.com/ for a live instance of application.
+See https://scheels-proj.herokuapp.com/ for a live instance of the application.
