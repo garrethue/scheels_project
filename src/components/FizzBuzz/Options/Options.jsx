@@ -26,6 +26,10 @@ import { SettingsIcon } from "@chakra-ui/icons";
 export default function Options(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  const minNumLength = -100;
+  const maxNumLength = 300;
+  const maxDomainNameLength = 15;
+  const maxTopLevelDomainLength = 5;
 
   const handleOnOpen = () => {
     onOpen();
@@ -82,8 +86,8 @@ export default function Options(props) {
               <NumberInput
                 onChange={(e) => props.parameters.handleChange(e, "min")}
                 value={props.parameters.min}
-                min={-100}
-                max={300}
+                min={minNumLength}
+                max={maxNumLength}
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -95,8 +99,8 @@ export default function Options(props) {
               <NumberInput
                 onChange={(e) => props.parameters.handleChange(e, "max")}
                 value={props.parameters.max}
-                min={-100}
-                max={300}
+                min={minNumLength}
+                max={maxNumLength}
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -121,7 +125,7 @@ export default function Options(props) {
                 placeholder="SCHEELS"
                 value={props.parameters.domainName}
                 onChange={(e) => props.parameters.handleChange(e, "domainName")}
-                maxLength={15}
+                maxLength={maxDomainNameLength}
               />
               <FormLabel mt={2}>Top-Level Domain</FormLabel>
               <Input
@@ -131,7 +135,7 @@ export default function Options(props) {
                 onChange={(e) =>
                   props.parameters.handleChange(e, "topLevelDomain")
                 }
-                maxLength={5}
+                maxLength={maxTopLevelDomainLength}
               />
               <Button
                 colorScheme="red"
